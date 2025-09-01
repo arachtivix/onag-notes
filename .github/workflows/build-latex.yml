@@ -1,0 +1,36 @@
+---
+name: Build LaTeX Documents
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-latex:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: surreal_numbers.tex
+          working_directory: ch0
+          args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: surreal-numbers-pdf
+          path: ch0/surreal_numbers.pdf
+          retention-days: 90
+
+      - name: List generated files
+        run: |
+          echo "Files in ch0 directory after compilation:"
+          ls -la ch0/

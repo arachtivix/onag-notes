@@ -1,0 +1,138 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+
+\geometry{margin=1in}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{example}{Example}[section]
+
+\title{An Introduction to Surreal Numbers}
+\author{ONAG Notes - Chapter 0}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This document provides a basic introduction to surreal numbers, the fascinating number system discovered by John Horton Conway. We explore the fundamental construction, basic operations, and some simple examples that demonstrate the elegance and power of this remarkable mathematical structure.
+\end{abstract}
+
+\section{Introduction}
+
+Surreal numbers were first introduced by John Horton Conway and later popularized by Donald Knuth in his book ``Surreal Numbers: How Two Ex-Students Turned on to Pure Mathematics and Found Total Happiness.'' The surreal numbers form a proper class that includes all real numbers and extends far beyond them, incorporating infinitesimal and infinite quantities in a natural way.
+
+\section{Basic Construction}
+
+\begin{definition}[Surreal Number]
+A surreal number is defined recursively as a pair $\{L|R\}$ where:
+\begin{itemize}
+    \item $L$ is a set of surreal numbers (the ``left set'')
+    \item $R$ is a set of surreal numbers (the ``right set'')  
+    \item No element of $L$ is greater than or equal to any element of $R$
+\end{itemize}
+\end{definition}
+
+The construction begins on ``day 0'' with the empty sets, giving us:
+$$\{|\} = 0$$
+
+This represents the number zero, born from nothing on either side.
+
+\section{The First Few Numbers}
+
+On ``day 1,'' we can use the number 0 we created to form new numbers:
+
+\begin{align}
+\{|0\} &= -1 \\
+\{0|\} &= 1
+\end{align}
+
+On ``day 2,'' we have more possibilities:
+
+\begin{align}
+\{|-1\} &= -2 \\
+\{-1|0\} &= -\frac{1}{2} \\
+\{0|1\} &= \frac{1}{2} \\
+\{1|\} &= 2
+\end{align}
+
+\begin{example}
+Let's verify that $\{0|1\} = \frac{1}{2}$:
+\begin{itemize}
+    \item The left set is $\{0\}$, so our number is greater than 0
+    \item The right set is $\{1\}$, so our number is less than 1
+    \item Among all numbers strictly between 0 and 1, the ``simplest'' (born earliest) is $\frac{1}{2}$
+\end{itemize}
+\end{example}
+
+\section{Ordering and Equality}
+
+\begin{definition}[Surreal Number Ordering]
+For surreal numbers $x = \{L_x|R_x\}$ and $y = \{L_y|R_y\}$:
+$$x \leq y \text{ if and only if } \text{no element of } L_y \text{ is } \geq x \text{ and no element of } R_x \text{ is } \leq y$$
+\end{definition}
+
+Two surreal numbers are equal if $x \leq y$ and $y \leq x$.
+
+\section{Addition}
+
+\begin{definition}[Surreal Addition]
+For surreal numbers $x = \{L_x|R_x\}$ and $y = \{L_y|R_y\}$:
+$$x + y = \{L_x + y \cup x + L_y | R_x + y \cup x + R_y\}$$
+where $L_x + y$ means $\{l + y : l \in L_x\}$, and similarly for the other sets.
+\end{definition}
+
+\begin{example}
+Let's compute $1 + \frac{1}{2}$:
+\begin{align}
+1 + \frac{1}{2} &= \{0|\} + \{0|1\} \\
+&= \{0 + \{0|1\} \cup \{0|\} + 0 | \{0|\} + 1\} \\
+&= \{\frac{1}{2} \cup 1 | 2\} \\
+&= \{1, \frac{1}{2} | 2\} \\
+&= \frac{3}{2}
+\end{align}
+\end{example}
+
+\section{Infinite and Infinitesimal Numbers}
+
+One of the most remarkable features of surreal numbers is their ability to represent infinite and infinitesimal quantities naturally.
+
+\begin{example}
+The number $\omega = \{0, 1, 2, 3, \ldots | \}$ represents the first infinite ordinal, which is greater than all finite numbers.
+
+The number $\epsilon = \{0 | \frac{1}{2}, \frac{1}{4}, \frac{1}{8}, \ldots\}$ represents a positive infinitesimal, smaller than any positive real number but greater than zero.
+\end{example}
+
+\section{Conclusion}
+
+Surreal numbers provide a unified framework for understanding numbers that encompasses:
+\begin{itemize}
+    \item All real numbers
+    \item Infinite numbers of various sizes  
+    \item Infinitesimal numbers
+    \item Complex hierarchies of transfinite and infinitesimal quantities
+\end{itemize}
+
+This elegant construction demonstrates how simple recursive definitions can give rise to incredibly rich mathematical structures. The surreal numbers continue to be an active area of research in mathematical logic, set theory, and game theory.
+
+\begin{thebibliography}{9}
+\bibitem{conway}
+Conway, J.H. (2001). \emph{On Numbers and Games}, 2nd ed. A K Peters.
+
+\bibitem{knuth}  
+Knuth, D.E. (1974). \emph{Surreal Numbers: How Two Ex-Students Turned on to Pure Mathematics and Found Total Happiness}. Addison-Wesley.
+
+\bibitem{gonshor}
+Gonshor, H. (1986). \emph{An Introduction to the Theory of Surreal Numbers}. Cambridge University Press.
+\end{thebibliography}
+
+\end{document}
