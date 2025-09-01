@@ -18,4 +18,4 @@
 *.tmp
 
 # LaTeX build directories
-build/
+build/*.pdf
