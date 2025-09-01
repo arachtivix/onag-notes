@@ -1,0 +1,115 @@
+% Reusable component for analyzing surreal number comparisons
+% This file provides a tabular format for step-by-step analysis of whether
+% one surreal number is greater than or equal to another
+
+% Required packages (should be loaded in main document)
+% \usepackage{amsmath}
+% \usepackage{array}  
+% \usepackage{booktabs}
+
+% Counter for comparison steps
+\newcounter{comparisonStep}
+
+% Define a new column type for centered math mode
+\newcolumntype{C}{>{$}c<{$}}
+
+% Simplified command for surreal number comparison analysis
+% Usage: \surrealComparisonAnalysis{x_notation}{x_left}{x_right}{y_notation}{y_left}{y_right}{conclusion}
+\newcommand{\surrealComparisonAnalysis}[7]{%
+    \setcounter{comparisonStep}{0}%
+    \begin{center}
+    \textbf{Analysis of } $#1 \geq #4$
+    \end{center}
+    
+    \noindent\textbf{Given:}
+    \begin{align*}
+    #1 &= \{#2|#3\} \\
+    #4 &= \{#5|#6\}
+    \end{align*}
+    
+    \noindent\textbf{To prove } $#1 \geq #4$\textbf{, we must show } $#4 \leq #1$\textbf{:}
+    
+    \vspace{0.5em}
+    \noindent By definition, $#4 \leq #1$ if and only if:
+    \begin{itemize}
+        \item No element of $L_{#1}$ is $\geq #4$, \textbf{and}
+        \item No element of $R_{#4}$ is $\leq #1$
+    \end{itemize}
+    
+    \vspace{1em}
+    \begin{tabular}{|c|l|l|c|}
+    \hline
+    \textbf{Step} & \textbf{Condition to Check} & \textbf{Analysis} & \textbf{Result} \\
+    \hline
+    \stepcounter{comparisonStep}%
+    \thecomparisonStep & No $l \in L_{#1} = \{#2\}$ has $l \geq #4$ & 
+    \begin{minipage}{5cm}
+    \raggedright
+    \surrealAnalyzeLeft{#2}{#4}
+    \end{minipage} & 
+    \surrealResultLeft{#2}{#4} \\
+    \hline
+    \stepcounter{comparisonStep}%
+    \thecomparisonStep & No $r \in R_{#4} = \{#6\}$ has $r \leq #1$ & 
+    \begin{minipage}{5cm}
+    \raggedright
+    \surrealAnalyzeRight{#6}{#1}
+    \end{minipage} & 
+    \surrealResultRight{#6}{#1} \\
+    \hline
+    \multicolumn{3}{|c|}{\textbf{Conclusion}} & #7 \\
+    \hline
+    \end{tabular}
+    
+    \vspace{1em}
+}
+
+% Helper commands for analysis
+\newcommand{\surrealAnalyzeLeft}[2]{%
+    \ifx\relax#1\relax%
+        $L_{#1}$ is empty, so no elements to check%
+    \else%
+        \if\relax\detokenize{#1}\relax%
+            $L$ is empty, so no elements to check%
+        \else%
+            Check if each element in $\{#1\}$ is $\geq #2$%
+        \fi%
+    \fi%
+}
+
+\newcommand{\surrealAnalyzeRight}[2]{%
+    \ifx\relax#1\relax%
+        $R$ is empty, so no elements to check%
+    \else%
+        \if\relax\detokenize{#1}\relax%
+            $R$ is empty, so no elements to check%
+        \else%
+            Check if each element in $\{#1\}$ is $\leq #2$%
+        \fi%
+    \fi%
+}
+
+% Result commands
+\newcommand{\surrealResultLeft}[2]{%
+    \ifx\relax#1\relax%
+        $\checkmark$%
+    \else%
+        \if\relax\detokenize{#1}\relax%
+            $\checkmark$%
+        \else%
+            See details%
+        \fi%
+    \fi%
+}
+
+\newcommand{\surrealResultRight}[2]{%
+    \ifx\relax#1\relax%
+        $\checkmark$%
+    \else%
+        \if\relax\detokenize{#1}\relax%
+            $\checkmark$%
+        \else%
+            See details%
+        \fi%
+    \fi%
+}
